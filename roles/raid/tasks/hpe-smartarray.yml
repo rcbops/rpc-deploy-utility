@@ -1,0 +1,15 @@
+---
+  - name: HP Smart Array - Check Drives and Determine RAID Layout
+    determine_smartarray_layout: get_facts=yes
+
+  - name: HP Smart Array - Clear all logical disks
+    shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} delete forced override"
+    ignore_errors: true
+
+  - name: HP Smart Array - Create RAID - Default all
+    shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} create type=ld drives={{ smartarray_total_array }} raid=1+0 forced"
+    when: ansible_cmdline.role == "compute"
+
+  - name: HP Smart Array - Create RAID - Default mirror
+    shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} create type=ld drives=1I:1:1,1I:1:2 raid=1 forced"
+    when: ansible_cmdline.role == "ceph" or ansible_cmdline.role == "haproxy" or ansible_cmdline.role == "infra"

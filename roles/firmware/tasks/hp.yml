@@ -1,0 +1,44 @@
+---
+  - name: Install fwpp repository
+    yum_repository:
+      name: fwpp
+      description: Firmware Pack for ProLiant
+      baseurl: http://{{ ansible_cmdline.hpsum_key }}:null@downloads.linux.hpe.com/repo/fwpp/rhel/7/x86_64/current/
+      state: present
+      file: fwpp.repo
+      enabled: yes
+      gpgcheck: no
+      gpgkey: file:///etc/pki/rpm-gpg/GPG-KEY-FirmwarePackforProLiant
+    when: ansible_distribution == "CentOS"
+
+  - name: Install hpsum repository
+    yum_repository:
+      name: hpsum
+      description: HPE Smart Update Manager
+      baseurl: http://downloads.linux.hpe.com/repo/hpsum/rhel/7/x86_64/current/
+      state: present
+      file: hpsum.repo
+      enabled: yes
+      gpgcheck: no
+      gpgkey: file:///etc/pki/rpm-gpg/GPG-KEY-hpsum
+    when: ansible_distribution == "CentOS"
+  
+  - name: Install hpsum package
+    package:
+      name: sum
+      state: present
+      update_cache: yes
+
+  - name: Update HP DL360 Gen10
+    include: hp-dl360-gen10.yml
+    when: ansible_product_name == "ProLiant DL360 Gen10"
+
+  - name: Update HP DL380 Gen10
+    include: hp-dl380-gen10.yml
+    when: ansible_product_name == "ProLiant DL380 Gen10"
+
+#  - name: Retrieve HP firmware updates for platform
+#    shell: yum install --downloaddir=/run/hpsum -y $(hpsum requires)
+
+#  - name: Apply HP firmware updates for platform
+#    shell: hpsum upgrade --rewrite -y -v -d

@@ -1,0 +1,17 @@
+#!/bin/bash
+# Determines the number of drives, and generates the drive configuration string to create a RAID 10
+
+SLOT_NUMBER=`ssacli ctrl all show status | grep Slot | awk -F'Slot ' {'print $2'} | awk '{print $1}'`
+TOTAL_DRIVES=`ssacli ctrl slot=$SLOT_NUMBER pd all show | grep "physicaldrive" | wc -l`
+DRIVE_ID=`ssacli ctrl slot=$SLOT_NUMBER pd all show | grep "physicaldrive" | awk {'print $2'} | tr '\n' ','`
+TOTAL_ARRAYS=$(($TOTAL_DRIVES/2))
+
+cat <<EOF
+{
+   "ansible_facts" : {
+      "smartarray_total_drives" : "$TOTAL_DRIVES",
+      "smartarray_total_array"  : "$DRIVE_ID",
+      "smartarray_slot_number"  : "$SLOT_NUMBER"
+   }
+}
+EOF

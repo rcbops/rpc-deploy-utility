@@ -1,0 +1,4 @@
+---
+  - name: Run Dell System Update
+    command: dsu --non-interactive
+    ignore_errors: true

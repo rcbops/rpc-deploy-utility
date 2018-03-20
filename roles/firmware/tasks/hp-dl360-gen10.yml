@@ -1,0 +1,19 @@
+---
+  - name: Retrieve packages
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - firmware-system-u32
+      - firmware-ilo5
+      - firmware-smartarray-f7c07bdbbd
+
+  - name: Install firmware
+    shell: ./setup -s
+    args:
+      chdir: "/usr/lib/x86_64-linux-gnu/{{ item }}"
+    with_items:
+      - firmware-ilo5-1.20-1.1
+      - firmware-smartarray-f7c07bdbbd-1.34-1.1
+      - firmware-system-u32-1.36_2018_02_14-1.1
+    ignore_errors: true

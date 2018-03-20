@@ -1,0 +1,12 @@
+---
+  - name: Reset Power via OBM
+    shell: ipmitool chassis power reset
+    ignore_errors: true
+
+  - name: Reset Power via OS
+    shell: /sbin/shutdown -r now
+    ignore_errors: true
+
+  - name: Reboot via sysrq
+    shell: "echo 1 > /proc/sys/kernel/sysrq; echo b > /proc/sysrq-trigger"
+    ignore_errors: true

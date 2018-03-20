@@ -1,0 +1,12 @@
+---
+  - name: Gather a list of partitions on /dev/sda
+    parted: device=/dev/sda unit=MiB
+    register: sda_info
+
+  - name: Remove all existing partitions from /dev/sda
+    parted:
+      device: /dev/sda
+      number: "{{ item.num }}"
+      state: absent
+    with_items:
+      - "{{ sda_info.partitions }}"

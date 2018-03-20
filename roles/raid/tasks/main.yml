@@ -1,0 +1,6 @@
+---
+
+  - include: hpe-smartarray.yml
+    when: ansible_system_vendor == "HPE"
+
+  - include: wipe_partition.yml
