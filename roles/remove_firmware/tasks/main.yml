@@ -1,0 +1,13 @@
+---
+
+  - name: Retrieve deploy key
+    get_url:
+      url: "http://{{ ansible_cmdline.deploy_host }}/deploy_key"
+      dest: /root/deploy_key
+      mode: 0600
+
+  - name: Remove firmware marker from deployment server
+    shell: "ssh -o StrictHostKeyChecking=no -i /root/deploy_key deploy@{{ ansible_cmdline.deploy_host }} 'rm {{ ansible_cmdline.BOOTIF | replace(':', '-') | lower }}/firmware'"
+    args:
+      chdir: /root
+    ignore_errors: true

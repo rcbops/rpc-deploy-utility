@@ -3,3 +3,5 @@
   user: root
   roles:
     - firmware
+    - remove_firmware
+    - power_reset
