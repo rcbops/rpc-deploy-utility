@@ -6,10 +6,16 @@
     shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} delete forced override"
     ignore_errors: true
 
-  - name: HP Smart Array - Create RAID - Default all
+  - name: HP Smart Array - Create RAID 10 for compute role when four or more drives
     shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} create type=ld drives={{ smartarray_total_array }} raid=1+0 forced"
-    when: ansible_cmdline.role == "compute"
+    when: ansible_cmdline.role == "compute" and smartarray_total_drives >= 4
 
-  - name: HP Smart Array - Create RAID - Default mirror
+  - name: HP Smart Array - Create RAID 1 for compute role when two drives
     shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} create type=ld drives=1I:1:1,1I:1:2 raid=1 forced"
-    when: ansible_cmdline.role == "ceph" or ansible_cmdline.role == "haproxy" or ansible_cmdline.role == "infra"
+    when: ansible_cmdline.role == "compute" and smartarray_total_drives == 2
+
+  - name: HP Smart Array - Create RAID 1
+    shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} create type=ld drives=1I:1:1,1I:1:2 raid=1 forced"
+    when: (ansible_cmdline.role == "ceph") or 
+          (ansible_cmdline.role == "haproxy") or 
+          (ansible_cmdline.role == "infra")
