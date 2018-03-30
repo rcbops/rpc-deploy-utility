@@ -9,6 +9,12 @@ hpe_dl360_gen10:
      package_name: "firmware-smartarray-f7c07bdbbd"
    - type: "Advanced Power Capping Microcontroller Firmware"
      package_name: "firmware-powerpic-gen10"
+   - type: "NIC Firmware (Intel)
+     package_name: "hp-firmware-nic-intel"
+   - type: "NIC Firmware (Broadcom)
+     package_name: "hp-firmware-nic-broadcom"
+   - type: "NIC Firmware (Mellanox)
+     package_name: "hp-firmware-nic-mellanox-ethernet-only"
 
 hpe_dl380_gen9:
    - type: "BIOS"
@@ -29,3 +35,9 @@ hpe_dl380_gen10:
      package_name: "firmware-smartarray-f7c07bdbbd"
    - type: "Advanced Power Capping Microcontroller Firmware"
      package_name: "firmware-powerpic-gen10"
+   - type: "NIC Firmware (Intel)
+     package_name: "hp-firmware-nic-intel"
+   - type: "NIC Firmware (Broadcom)
+     package_name: "hp-firmware-nic-broadcom"
+   - type: "NIC Firmware (Mellanox)
+     package_name: "hp-firmware-nic-mellanox-ethernet-only"
