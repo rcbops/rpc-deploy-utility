@@ -1,5 +1,5 @@
 ---
-hpe-dl380-gen10:
+hpe_dl380_gen10:
    - type: "BIOS"
      package_name: "firmware-system-u30"
    - type: "iLO 5"
@@ -7,7 +7,7 @@ hpe-dl380-gen10:
    - type: "Smart Array"
      package_name: "firmware-smartarray-f7c07bdbbd"
 
-hpe-dl360-gen10:
+hpe_dl360_gen10:
    - type: "BIOS"
      package_name: "firmware-system-u32"
    - type: "iLO 5"

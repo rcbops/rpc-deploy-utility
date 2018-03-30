@@ -3,4 +3,4 @@
     package:
       name: "{{ item.package_name }}"
       state: present
-    with_items: hpe-dl380-gen10
+    with_items: "{{ hpe_dl380_gen10 }}"
