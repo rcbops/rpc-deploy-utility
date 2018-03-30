@@ -1,0 +1,6 @@
+---
+  - name: Retrieve packages for HPE DL380 Gen9
+    package:
+      name: "{{ item.package_name }}"
+      state: present
+    with_items: "{{ hpe_dl380_gen9 }}"

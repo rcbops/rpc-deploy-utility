@@ -33,6 +33,10 @@
     include: hpe-dl360-gen10.yml
     when: ansible_product_name == "ProLiant DL360 Gen10"
 
+  - name: Retrieve HPE DL380 Gen9 firmware
+    include: hpe-dl380-gen9.yml
+    when: ansible_product_name == "ProLiant DL380 Gen9"
+
   - name: Retrieve HPE DL380 Gen10 firmware
     include: hpe-dl380-gen10.yml
     when: ansible_product_name == "ProLiant DL380 Gen10"
