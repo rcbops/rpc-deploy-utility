@@ -1,0 +1,6 @@
+---
+  - name: Retrieve packages for HPE DL360 Gen10
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items: hpe-dl360-gen10

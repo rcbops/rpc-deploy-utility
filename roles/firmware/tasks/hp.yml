@@ -29,13 +29,25 @@
       state: present
       update_cache: yes
 
-  - name: Update HP DL360 Gen10
-    include: hp-dl360-gen10.yml
+  - name: Retrieve HPE DL360 Gen10 firmware
+    include: hpe-dl360-gen10.yml
     when: ansible_product_name == "ProLiant DL360 Gen10"
 
-  - name: Update HP DL380 Gen10
-    include: hp-dl380-gen10.yml
+  - name: Retrieve HPE DL380 Gen10 firmware
+    include: hpe-dl380-gen10.yml
     when: ansible_product_name == "ProLiant DL380 Gen10"
+
+  - name: Iterate through firmware directories
+    shell: ls -d1 /usr/lib/x86_64-linux-gnu/firmware-*
+    register: firmware_dir
+
+  - name: Install all firmware
+    shell: ./setup -s
+    args:
+      chdir: "{{ item }}"
+    with_items:
+      - "{{ firmware_dir.stdout_lines }}"
+    ignore_errors: true
 
 #  - name: Retrieve HP firmware updates for platform
 #    shell: yum install --downloaddir=/run/hpsum -y $(hpsum requires)
