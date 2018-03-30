@@ -12,6 +12,7 @@ These playbooks are burned into the Utility image.  The current plays that can b
 
 |State|Purpose|Data Destructive|
 |-----|-------|-----------|
+|debug|Doesn't run playbook operations but allows testing and debugging|no|
 |firmware|Updates all firmware and then boots back into OS|no|
 |preflight|Preps machine for OS, updates firmware, configures RAID, configures OBM|yes|
 |raid|Removes all partitions and sets up RAID array|yes|
