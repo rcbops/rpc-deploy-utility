@@ -2,6 +2,7 @@
 - hosts: all
   user: root
   roles:
+    - get_settings
     - firmware
     - raid
     - remove_preflight

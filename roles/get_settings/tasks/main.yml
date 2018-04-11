@@ -1,0 +1,12 @@
+---
+  - name: Get settings for MAC address from deployment server
+    get_url:
+      url: "http://{{ ansible_cmdline.deploy_host }}/pxe/{{ ansible_cmdline.BOOTIF | replace(':', '-') | lower }}/configs/settings.yml"
+      dest: /opt/rpc-deploy-utility/settings.yml
+      mode: 0440
+    ignore_errors: true
+
+  - name: Import variables from settings.yml
+    include_vars:
+      file: /opt/rpc-deploy/utility/settings.yml
+      name: deploy
