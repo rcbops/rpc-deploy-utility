@@ -8,5 +8,5 @@
 
   - name: Import variables from settings.yml
     include_vars:
-      file: /opt/rpc-deploy/utility/settings.yml
+      file: /opt/rpc-deploy-utility/settings.yml
       name: deploy
