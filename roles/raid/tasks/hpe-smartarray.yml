@@ -18,4 +18,5 @@
     shell: "{{ smartarray_binary }} ctrl slot={{ smartarray_slot_number }} create type=ld drives=1I:1:1,1I:1:2 raid=1 forced"
     when: (ansible_cmdline.role == "ceph") or 
           (ansible_cmdline.role == "haproxy") or 
-          (ansible_cmdline.role == "infra")
+          (ansible_cmdline.role == "infra") or
+          (ansible_cmdline.role == "director")
