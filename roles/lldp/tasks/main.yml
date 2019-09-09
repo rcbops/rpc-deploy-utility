@@ -1,0 +1,21 @@
+---
+- name: Ensure LLDP started
+  service:
+    name: lldpd
+    state: started
+
+- name: Pause to receive LLDP packets
+  pause:
+    seconds: 60
+
+- name: Gather LLDP facts about server
+  lldp:
+
+- name: Dump collected LLDP information
+  debug: 
+    var: lldp
+
+- name: Switch configurations LLDP dump from server
+  debug:
+    msg: "Interface: {{ item }}, MAC: {{ lldp[item]['port']['mac'] }}, Switch Name: {{ lldp[item]['chassis']['name'] }}, Switch Port: {{ lldp[item]['port']['local'] }}"
+  with_items: "{{ lldp.keys() }}"
