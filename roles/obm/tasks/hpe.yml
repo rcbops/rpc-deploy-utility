@@ -1,0 +1,23 @@
+---
+  - name: Set lan channel to 2 if regular HP ProLiant
+    set_fact: hp_obm_channel=2
+
+  - name: Configure HPE OBM Networking Interface
+    shell: /usr/bin/ipmitool lan set {{ hp_obm_channel }} {{ item }}
+    with_items:
+    - "ipsrc static"
+    - "ipaddr {{ ansible_cmdline.obm_ip }}"
+    - "netmask {{ ansible_cmdline.obm_nm }}"
+    - "defgw ipaddr {{ ansible_cmdline.obm_gw }}"
+
+  - name: Configure HPE OBM User Name for obm_user and obm_password
+    shell: /usr/bin/ipmitool user set {{ item }}
+    with_items:
+    - 'name 2 {{ ansible_cmdline.obm_usr }}'
+    - 'password 2 "{{ ansible_cmdline.obm_pw }}"'
+    - 'password 1 "{{ ansible_cmdline.obm_pw }}"'
+    ignore_errors: true
+    no_log: true
+  
+  - name: Reset ILO following reconfiguration
+    shell: ipmitool mc reset cold

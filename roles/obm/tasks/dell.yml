@@ -1,0 +1,16 @@
+---
+  - name: Configure Dell OBM Networking Interface
+    shell: /usr/bin/ipmitool lan set 1 {{ item }}
+    with_items:
+    - "ipsrc static"
+    - "ipaddr {{ ansible_cmdline.obm_ip }}"
+    - "netmask {{ ansible_cmdline.obm_nm }}"
+    - "defgw ipaddr {{ ansible_cmdline.obm_gw }}"
+
+  - name: Configure Dell OBM User Name
+    shell: /usr/bin/ipmitool user set {{ item }}
+    with_items:
+    - 'name 2 {{ ansible_cmdline.obm_usr }}'
+    - 'password 2 "{{ ansible_cmdline.obm_pw }}"'
+    ignore_errors: true
+    no_log: true

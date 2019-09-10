@@ -1,0 +1,9 @@
+---
+  - name: Load ipmi_devintf
+    shell: modprobe ipmi_devintf
+
+  - include: dell.yml
+    when: ansible_system_vendor == "Dell Inc."
+
+  - include: hpe.yml
+    when: ansible_system_vendor == "HPE"
