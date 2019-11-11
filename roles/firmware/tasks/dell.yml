@@ -1,4 +1,4 @@
 ---
   - name: Run Dell System Update
-    command: dsu --non-interactive
+    command: dsu --non-interactive --import-public-key
     ignore_errors: true
